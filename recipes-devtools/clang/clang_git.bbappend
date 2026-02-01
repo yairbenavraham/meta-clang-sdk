@@ -8,3 +8,9 @@ PACKAGECONFIG:append:class-nativesdk = " lld"
 # Limit parallel build jobs to number of CPUs minus 4 to prevent system overload
 PARALLEL_MAKE = "-j${@max(1, int(oe.utils.cpu_count()) - 4)}"
 PARALLEL_MAKEINST = "-j${@max(1, int(oe.utils.cpu_count()) - 4)}"
+
+# Install KaleidoscopeJIT.h header for LLVM tutorial support
+do_install:append() {
+    install -d ${D}${includedir}
+    install -m 0644 ${S}/llvm/examples/Kaleidoscope/include/KaleidoscopeJIT.h ${D}${includedir}/
+}
